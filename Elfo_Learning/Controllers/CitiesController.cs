@@ -19,7 +19,7 @@ namespace Elfo_Learning.Controllers
         {
             try
             {
-                //throw new Exception();
+                throw new Exception();
                 var response = new Response();
                 var result = Cities.data.Select(x => x.Id).ToList();
                 if (!result.Contains(id))
