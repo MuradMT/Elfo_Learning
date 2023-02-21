@@ -9,6 +9,8 @@ namespace Elfo_Learning.Mapping
         public MappingConfig()
         {
             CreateMap<City,CityDto>().ReverseMap();
+            CreateMap<City,CityCreateDto>().ReverseMap();
+            CreateMap<City, CityUpdateDto>().ReverseMap();
         }
     }
 }
