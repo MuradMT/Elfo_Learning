@@ -1,4 +1,4 @@
-﻿namespace Elfo_Learning.Models
+﻿ namespace Elfo_Learning.Models
 {
     public class CityDto
     {

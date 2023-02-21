@@ -1,4 +1,6 @@
 global using Microsoft.AspNetCore.Mvc;
+global using System.ComponentModel.DataAnnotations;
+using Elfo_Learning.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using NLog.Extensions.Logging;
@@ -12,10 +14,10 @@ namespace Elfo_Learning
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Logging.AddNLog();
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
-           
+            builder.Logging.AddNLog();
+            builder.Services.AddTransient<IMailService,LocalMailService>();
             // Add services to the container.
             //Add fluent validation for validating
             builder.Services.AddControllers().AddFluentValidation();

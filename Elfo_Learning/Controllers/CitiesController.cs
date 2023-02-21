@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Elfo_Learning.MockData;
 using Elfo_Learning.Models;
+using Elfo_Learning.Services;
 using Elfo_Learning.Validation;
 
 namespace Elfo_Learning.Controllers
@@ -10,16 +11,18 @@ namespace Elfo_Learning.Controllers
     public class CitiesController : ControllerBase
     {
         private ILogger<CitiesController> logger;
-        public CitiesController(ILogger<CitiesController> logger)
+        private IMailService mailService;
+        public CitiesController(ILogger<CitiesController> logger,IMailService mailService)
         {
             this.logger = logger;
+            this.mailService = mailService;
         }
         [HttpGet("get")]
         public async Task<ActionResult<Response>> Get(int id)
         {
             try
             {
-                throw new Exception();
+                //throw new Exception();
                 var response = new Response();
                 var result = Cities.data.Select(x => x.Id).ToList();
                 if (!result.Contains(id))
@@ -35,7 +38,7 @@ namespace Elfo_Learning.Controllers
                 response.Success = true;
                 response.Message = $"Succesfully get {id} city";
 
-
+                //mailService.Send("GetCityFromId","We get city from his id");
                 return Ok(response);
             }
             catch (Exception ex)
