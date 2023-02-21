@@ -1,7 +1,11 @@
 global using Microsoft.AspNetCore.Mvc;
 global using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using Elfo_Learning.Context;
+using Elfo_Learning.Mapping;
 using Elfo_Learning.Services;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog.Extensions.Logging;
 using NLog.Fluent;
@@ -20,11 +24,13 @@ namespace Elfo_Learning
             builder.Services.AddTransient<IMailService,LocalMailService>();
             // Add services to the container.
             //Add fluent validation for validating
+            builder.Services.AddAutoMapper(typeof(MappingConfig));
             builder.Services.AddControllers().AddFluentValidation();
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+            builder.Services.AddDbContext<ElfoContext>(use => use.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:Key").Value));
             var app = builder.Build();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

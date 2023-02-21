@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using AutoMapper;
 using Elfo_Learning.MockData;
 using Elfo_Learning.Models;
 using Elfo_Learning.Services;
@@ -12,10 +13,12 @@ namespace Elfo_Learning.Controllers
     {
         private ILogger<CitiesController> logger;
         private IMailService mailService;
-        public CitiesController(ILogger<CitiesController> logger,IMailService mailService)
+        private IMapper mapper;
+        public CitiesController(ILogger<CitiesController> logger,IMailService mailService,IMapper mapper)
         {
             this.logger = logger;
             this.mailService = mailService;
+            this.mapper = mapper;
         }
         [HttpGet("get")]
         public async Task<ActionResult<Response>> Get(int id)
